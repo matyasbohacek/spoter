@@ -1,9 +1,20 @@
 # SPOTER
 
-Repository accompanying the "Sign Pose-based Transformer for Word-level Sign Language Recognition" paper.
+Repository accompanying the "Sign Pose-based Transformer for Word-level Sign Language Recognition" paper, where we present a novel architecture for word-level sign language recognition based on the Transformer model. We designed our solution with low computational cost in mind, since we see egreat potential in the usage of such recognition system on hand-held devices. We introduce multiple original augmentation techniques tailored for the task of sign language recognition and propose a unique normalization scheme based on sign language linguistics.
 
-The code and data will be open-sourced once the review process will have officially ended and the paper will be publicly available.
+## Get Started
 
+First, make sure to install all necessary dependencies using:
+
+```shell
+pip install -r requirements.txt
+```
+
+To train the model, simply run the following:
+
+```
+python -m [...]
+```
 
 ## License
 
