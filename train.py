@@ -16,9 +16,9 @@ from pathlib import Path
 
 from utils import __balance_val_split, __split_of_train_sequence, __log_class_statistics
 from datasets.czech_slr_dataset import CzechSLRDataset
-from cslr_transformer.model import CSLRTransformer
-from cslr_transformer.utils import train_epoch, evaluate
-from cslr_transformer.gaussian_noise import GaussianNoise
+from spoter.spoter_model import SPOTER
+from spoter.utils import train_epoch, evaluate
+from spoter.gaussian_noise import GaussianNoise
 
 
 def get_default_args():
@@ -105,7 +105,7 @@ def train(args):
         device = torch.device("cuda")
 
     # Construct the model
-    slrt_model = CSLRTransformer(num_classes=args.num_classes, hidden_dim=args.hidden_dim)
+    slrt_model = SPOTER(num_classes=args.num_classes, hidden_dim=args.hidden_dim)
     slrt_model.train(True)
     slrt_model.to(device)
 
