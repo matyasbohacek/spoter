@@ -10,10 +10,10 @@ def _get_clones(mod, n):
     return nn.ModuleList([copy.deepcopy(mod) for i in range(n)])
 
 
-class CSLRTransformerDecoderLayer(nn.TransformerDecoderLayer):
+class SPOTERTransformerDecoderLayer(nn.TransformerDecoderLayer):
 
     def __init__(self, d_model, nhead, dim_feedforward, dropout, activation):
-        super(CSLRTransformerDecoderLayer, self).__init__(d_model, nhead, dim_feedforward, dropout, activation)
+        super(SPOTERTransformerDecoderLayer, self).__init__(d_model, nhead, dim_feedforward, dropout, activation)
 
         del self.self_attn
 
@@ -21,8 +21,6 @@ class CSLRTransformerDecoderLayer(nn.TransformerDecoderLayer):
                 memory_mask: Optional[torch.Tensor] = None, tgt_key_padding_mask: Optional[torch.Tensor] = None,
                 memory_key_padding_mask: Optional[torch.Tensor] = None) -> torch.Tensor:
 
-        #tgt2 = self.self_attn(tgt, tgt, tgt, attn_mask=tgt_mask,
-        ##                      key_padding_mask=tgt_key_padding_mask)[0]
         tgt = tgt + self.dropout1(tgt)
         tgt = self.norm1(tgt)
         tgt2 = self.multihead_attn(tgt, memory, memory, attn_mask=memory_mask,
@@ -36,7 +34,7 @@ class CSLRTransformerDecoderLayer(nn.TransformerDecoderLayer):
         return tgt
 
 
-class CSLRTransformer(nn.Module):
+class SPOTER(nn.Module):
     """
 
     """
