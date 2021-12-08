@@ -7,10 +7,14 @@ from typing import Optional
 
 
 def _get_clones(mod, n):
-    return nn.ModuleList([copy.deepcopy(mod) for i in range(n)])
+    return nn.ModuleList([copy.deepcopy(mod) for _ in range(n)])
 
 
 class SPOTERTransformerDecoderLayer(nn.TransformerDecoderLayer):
+    """
+    Edited TransformerDecoderLayer implementation omitting the redundant self-attention operation as opposed to the
+    standard implementation.
+    """
 
     def __init__(self, d_model, nhead, dim_feedforward, dropout, activation):
         super(SPOTERTransformerDecoderLayer, self).__init__(d_model, nhead, dim_feedforward, dropout, activation)
@@ -36,7 +40,8 @@ class SPOTERTransformerDecoderLayer(nn.TransformerDecoderLayer):
 
 class SPOTER(nn.Module):
     """
-
+    Implementation of the SPOTER (Sign POse-based TransformER) architecture for sign language recognition from sequence
+    of skeletal data.
     """
 
     def __init__(self, num_classes, hidden_dim=55):
@@ -49,14 +54,15 @@ class SPOTER(nn.Module):
         self.linear_class = nn.Linear(hidden_dim, num_classes)
 
         # Deactivate the initial attention decoder mechanism
-        custom_decoder_layer = CSLRTransformerDecoderLayer(self.transformer.d_model, self.transformer.nhead,
-                                                           2048, 0.1, "relu")
+        custom_decoder_layer = SPOTERTransformerDecoderLayer(self.transformer.d_model, self.transformer.nhead, 2048,
+                                                             0.1, "relu")
         self.transformer.decoder.layers = _get_clones(custom_decoder_layer, self.transformer.decoder.num_layers)
 
     def forward(self, inputs):
         h = torch.unsqueeze(inputs.flatten(start_dim=1), 1).float()
         h = self.transformer(self.pos + h, self.class_query.unsqueeze(0)).transpose(0, 1)
         res = self.linear_class(h)
+
         return res
 
 
