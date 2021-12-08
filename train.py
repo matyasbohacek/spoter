@@ -14,12 +14,9 @@ from torchvision import transforms
 from torch.utils.data import DataLoader
 from pathlib import Path
 
+from utils import __balance_val_split, __split_of_train_sequence, __log_class_statistics
 from datasets.czech_slr_dataset import CzechSLRDataset
 from cslr_transformer.model import CSLRTransformer
-from vision_tranformer.vision_transformer_model import VisionTransformer
-from collections import Counter
-from torch.utils.data import Subset
-from sklearn.model_selection import train_test_split
 from cslr_transformer.utils import train_epoch, evaluate
 from cslr_transformer.gaussian_noise import GaussianNoise
 
@@ -58,41 +55,6 @@ def get_default_args():
     parser.add_argument("--experimental_train_split", type=float, default=0.8)
 
     return parser
-
-
-def __balance_val_split(dataset, val_split=0.):
-    targets = np.array(dataset.targets)
-    train_indices, val_indices = train_test_split(
-        np.arange(targets.shape[0]),
-        test_size=val_split,
-        stratify=targets
-    )
-
-    train_dataset = Subset(dataset, indices=train_indices)
-    val_dataset = Subset(dataset, indices=val_indices)
-
-    return train_dataset, val_dataset
-
-
-def __split_of_train_sequence(subset: Subset, train_split=1.0):
-    if train_split == 1:
-        return subset
-
-    targets = np.array([subset.dataset.targets[i] for i in subset.indices])
-    train_indices, _ = train_test_split(
-        np.arange(targets.shape[0]),
-        test_size=1 - train_split,
-        stratify=targets
-    )
-
-    train_dataset = Subset(subset.dataset, indices=[subset.indices[i] for i in train_indices])
-
-    return train_dataset
-
-
-def __log_class_statistics(subset: Subset):
-    train_classes = [subset.dataset.targets[i] for i in subset.indices]
-    print(dict(Counter(train_classes)))
 
 
 def train(args):
