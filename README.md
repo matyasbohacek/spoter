@@ -16,6 +16,10 @@ To train the model, simply run the following:
 python -m [...]
 ```
 
+## Data
+
+As SPOTER works on top of sequences of signers' skeletal data extracted from videos, we wanted to eliminate the computational demands of such annotation for each training run by pre-collecting this. For this reason and reproducibility, we are open-sourcing this data for WLASL100 and LSA64 datasets along with the repository. You can find the data [here]().
+
 ## License
 
 The **code** is published under the [Apache License 2.0](https://github.com/matyasbohacek/spoter/blob/main/LICENSE) which allows for both academic and commercial use if  relevant License and copyright notice is included, our work is cited and all changes are stated.
