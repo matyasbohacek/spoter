@@ -27,7 +27,7 @@ python -m train
   --testing_set_path [str; path to the csv file with testing set's skeletal data]
 ```
 
-If either the valudation or testing sets' paths are left empty, these corresponding metrics will not be calculated. We also provide out-of-the box parameter to split the validation set as a desired split of the training set while preserving the label distribution for datasets without author-specified splits. These and many other specific hyperparameters with their descriptions can be found in the [train.py](https://github.com/matyasbohacek/spoter/blob/main/train.py) file. All of them are provided a default value we found to be working well in our experiments.
+If either the validation or testing sets' paths are left empty, these corresponding metrics will not be calculated. We also provide out-of-the box parameter to split the validation set as a desired split of the training set while preserving the label distribution for datasets without author-specified splits. These and many other specific hyperparameters with their descriptions can be found in the [train.py](https://github.com/matyasbohacek/spoter/blob/main/train.py) file. All of them are provided a default value we found to be working well in our experiments.
 
 ## Data
 
