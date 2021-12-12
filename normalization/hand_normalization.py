@@ -110,6 +110,14 @@ def normalize_hands_full(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def normalize_single_dict(row: dict):
+    """
+    Normalizes the skeletal data for a given sequence of frames with signer's hand pose data. The normalization follows
+    the definition from our paper.
+
+    :param row: Dictionary containing key-value pairs with joint identifiers and corresponding lists (sequences) of
+                that particular joints coordinates
+    :return: Dictionary with normalized skeletal data (following the same schema as input data)
+    """
 
     hand_landmarks = {0: [], 1: []}
 

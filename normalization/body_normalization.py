@@ -126,6 +126,15 @@ def normalize_body_full(df: pd.DataFrame) -> (pd.DataFrame, list):
 
 
 def normalize_single_dict(row: dict):
+    """
+    Normalizes the skeletal data for a given sequence of frames with signer's body pose data. The normalization follows
+    the definition from our paper.
+
+    :param row: Dictionary containing key-value pairs with joint identifiers and corresponding lists (sequences) of
+                that particular joints coordinates
+    :return: Dictionary with normalized skeletal data (following the same schema as input data)
+    """
+
     sequence_size = len(row["leftEar"])
     valid_sequence = True
     original_row = row
