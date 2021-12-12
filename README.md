@@ -1,5 +1,8 @@
 # SPOTER
 
+> by **[Matyáš Boháček](https://github.com/matyasbohacek)** and **[Marek Hrúz](https://github.com/mhruz)**, University of West Bohemia <br>
+> Should you have any questions or inquiries, feel free to contact us [here](mailto:matyas.bohacek@matsworld.io).
+
 Repository accompanying the "Sign Pose-based Transformer for Word-level Sign Language Recognition" paper, where we present a novel architecture for word-level sign language recognition based on the Transformer model. We designed our solution with low computational cost in mind, since we see egreat potential in the usage of such recognition system on hand-held devices. We introduce multiple original augmentation techniques tailored for the task of sign language recognition and propose a unique normalization scheme based on sign language linguistics.
 
 ## Get Started
@@ -28,7 +31,7 @@ If either the valudation or testing sets' paths are left empty, these correspond
 
 ## Data
 
-As SPOTER works on top of sequences of signers' skeletal data extracted from videos, we wanted to eliminate the computational demands of such annotation for each training run by pre-collecting this. For this reason and reproducibility, we are open-sourcing this data for WLASL100 and LSA64 datasets along with the repository. You can find the data [here]().
+As SPOTER works on top of sequences of signers' skeletal data extracted from videos, we wanted to eliminate the computational demands of such annotation for each training run by pre-collecting this. For this reason and reproducibility, we are open-sourcing this data for WLASL100 and LSA64 datasets along with the repository. You can find the data [here](https://github.com/matyasbohacek/spoter/releases/tag/supplementary-data).
 
 ## License
 
