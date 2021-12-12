@@ -10,11 +10,21 @@ First, make sure to install all necessary dependencies using:
 pip install -r requirements.txt
 ```
 
-To train the model, simply run the following:
+To train the model, simply specify the hyperparameters and run the following:
 
 ```
-python -m [...]
+python -m train
+  --experiment_name [str; name of the experiment to name the output logs and plots]
+  
+  --epochs [int; number of epochs]
+  --lr [float; learning rate]
+  
+  --training_set_path [str; path to the csv file with training set's skeletal data]
+  --validation_set_path [str; path to the csv file with validation set's skeletal data]
+  --testing_set_path [str; path to the csv file with testing set's skeletal data]
 ```
+
+Other specific hyperparameters with their descriptions can be found in the [train.py]() file. All of them are provided a default value we found to be working well in our experiments.
 
 ## Data
 
