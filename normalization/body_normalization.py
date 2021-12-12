@@ -59,17 +59,28 @@ def normalize_body_full(df: pd.DataFrame) -> (pd.DataFrame, list):
                     starting_point, ending_point = last_starting_point, last_ending_point
 
             else:
+
+                # NOTE:
+                #
+                # While in the paper, it is written that the head metric is calculated by halving the shoulder distance,
+                # this is meant for the distance between the very ends of one's shoulder, as literature studying body
+                # metrics and ratios generally states. The Vision Pose Estimation API, however, seems to be predicting
+                # rather the center of one's shoulder. Based on our experiments and manual reviews of the data, employing
+                # this as just the plain shoulder distance seems to be more corresponding to the desired metric.
+                #
+                # Please, review this if using other third-party pose estimation libraries.
+
                 if row["leftShoulder_X"][sequence_index] != 0 and row["rightShoulder_X"][sequence_index] != 0:
                     left_shoulder = (row["leftShoulder_X"][sequence_index], row["leftShoulder_Y"][sequence_index])
                     right_shoulder = (row["rightShoulder_X"][sequence_index], row["rightShoulder_Y"][sequence_index])
                     shoulder_distance = ((((left_shoulder[0] - right_shoulder[0]) ** 2) + (
                                 (left_shoulder[1] - right_shoulder[1]) ** 2)) ** 0.5)
-                    head_metric = shoulder_distance / 2
+                    head_metric = shoulder_distance
                 else:
                     neck = (row["neck_X"][sequence_index], row["neck_Y"][sequence_index])
                     nose = (row["nose_X"][sequence_index], row["nose_Y"][sequence_index])
                     neck_nose_distance = ((((neck[0] - nose[0]) ** 2) + ((neck[1] - nose[1]) ** 2)) ** 0.5)
-                    head_metric = neck_nose_distance * 2
+                    head_metric = neck_nose_distance
 
                 # Set the starting and ending point of the normalization bounding box
                 starting_point = [row["neck_X"][sequence_index] - 3 * head_metric, row["leftEye_Y"][sequence_index] + (head_metric / 2)]
@@ -135,17 +146,28 @@ def normalize_single_dict(row: dict):
                 starting_point, ending_point = last_starting_point, last_ending_point
 
         else:
+
+            # NOTE:
+            #
+            # While in the paper, it is written that the head metric is calculated by halving the shoulder distance,
+            # this is meant for the distance between the very ends of one's shoulder, as literature studying body
+            # metrics and ratios generally states. The Vision Pose Estimation API, however, seems to be predicting
+            # rather the center of one's shoulder. Based on our experiments and manual reviews of the data, employing
+            # this as just the plain shoulder distance seems to be more corresponding to the desired metric.
+            #
+            # Please, review this if using other third-party pose estimation libraries.
+
             if row["leftShoulder"][sequence_index][0] != 0 and row["rightShoulder"][sequence_index][0] != 0:
                 left_shoulder = (row["leftShoulder"][sequence_index][0], row["leftShoulder"][sequence_index][1])
                 right_shoulder = (row["rightShoulder"][sequence_index][0], row["rightShoulder"][sequence_index][1])
                 shoulder_distance = ((((left_shoulder[0] - right_shoulder[0]) ** 2) + (
                         (left_shoulder[1] - right_shoulder[1]) ** 2)) ** 0.5)
-                head_metric = shoulder_distance / 2
+                head_metric = shoulder_distance
             else:
                 neck = (row["neck"][sequence_index][0], row["neck"][sequence_index][1])
                 nose = (row["nose"][sequence_index][0], row["nose"][sequence_index][1])
                 neck_nose_distance = ((((neck[0] - nose[0]) ** 2) + ((neck[1] - nose[1]) ** 2)) ** 0.5)
-                head_metric = neck_nose_distance * 2
+                head_metric = neck_nose_distance
 
             # Set the starting and ending point of the normalization bounding box
             # starting_point = [row["neck"][sequence_index][0] - 3 * head_metric,
