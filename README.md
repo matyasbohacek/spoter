@@ -1,4 +1,4 @@
-![Alt Text](http://spoter.signlanguagerecognition.com/img/logo_lg.png)
+![Alt Text](http://spoter.signlanguagerecognition.com/img/GitHub_banner.png)
 
 # SPOTER
 
