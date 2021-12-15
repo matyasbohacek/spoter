@@ -1,5 +1,5 @@
 
-![Alt Text](http://spoter.signlanguagerecognition.com/img/datasets.gif)
+![Alt Text](http://spoter.signlanguagerecognition.com/img/datasets_overview.gif)
 
 # SPOTER
 
