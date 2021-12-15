@@ -1,5 +1,5 @@
 
-![Alt Text](http://spoter.signlanguagerecognition.com/img/architecture_pipeline.gif)
+![Alt Text](http://spoter.signlanguagerecognition.com/img/datasets.gif)
 
 # SPOTER
 
