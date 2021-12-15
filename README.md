@@ -1,3 +1,5 @@
+![Alt Text](http://spoter.signlanguagerecognition.com/img/logo_lg.png)
+
 # SPOTER
 
 > by **[Matyáš Boháček](https://github.com/matyasbohacek)** and **[Marek Hrúz](https://github.com/mhruz)**, University of West Bohemia <br>
