@@ -1,3 +1,6 @@
+
+![Alt Text](http://spoter.signlanguagerecognition.com/img/architecture_pipeline.gif)
+
 # SPOTER
 
 > by **[Matyáš Boháček](https://github.com/matyasbohacek)** and **[Marek Hrúz](https://github.com/mhruz)**, University of West Bohemia <br>
