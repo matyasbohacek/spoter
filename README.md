@@ -5,7 +5,7 @@
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/sign-pose-based-transformer-for-word-level/sign-language-recognition-on-lsa64)](https://paperswithcode.com/sota/sign-language-recognition-on-lsa64?p=sign-pose-based-transformer-for-word-level)
 
-Repository accompanying the "Sign Pose-based Transformer for Word-level Sign Language Recognition" paper, where we present a novel architecture for word-level sign language recognition based on the Transformer model. We designed our solution with low computational cost in mind, since we see egreat potential in the usage of such recognition system on hand-held devices. We introduce multiple original augmentation techniques tailored for the task of sign language recognition and propose a unique normalization scheme based on sign language linguistics.
+Repository accompanying the [Sign Pose-based Transformer for Word-level Sign Language Recognition](https://openaccess.thecvf.com/content/WACV2022W/HADCV/html/Bohacek_Sign_Pose-Based_Transformer_for_Word-Level_Sign_Language_Recognition_WACVW_2022_paper.html) paper, where we present a novel architecture for word-level sign language recognition based on the Transformer model. We designed our solution with low computational cost in mind, since we see egreat potential in the usage of such recognition system on hand-held devices. We introduce multiple original augmentation techniques tailored for the task of sign language recognition and propose a unique normalization scheme based on sign language linguistics.
 
 ![Alt Text](http://spoter.signlanguagerecognition.com/img/architecture_github.gif)
 
@@ -47,4 +47,15 @@ The accompanying skeletal data of the [WLASL](https://arxiv.org/pdf/1910.11006.p
 
 ## Citation
 
-To be added once the publication is publicly available.
+If you find our work relevant, build upon it or compare your approaches with it, please cite our work as stated below:
+
+```
+@InProceedings{Bohacek_2022_WACV,
+    author    = {Boh\'a\v{c}ek, Maty\'a\v{s} and Hr\'uz, Marek},
+    title     = {Sign Pose-Based Transformer for Word-Level Sign Language Recognition},
+    booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) Workshops},
+    month     = {January},
+    year      = {2022},
+    pages     = {182-191}
+}
+```
