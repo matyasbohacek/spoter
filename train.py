@@ -185,11 +185,11 @@ def train(args):
         if args.save_checkpoints:
             if train_acc > top_train_acc:
                 top_train_acc = train_acc
-                torch.save(slrt_model.state_dict(), "out-checkpoints/" + args.experiment_name + "/checkpoint_t_" + str(checkpoint_index) + ".pth")
+                torch.save(slrt_model, "out-checkpoints/" + args.experiment_name + "/checkpoint_t_" + str(checkpoint_index) + ".pth")
 
             if val_acc > top_val_acc:
                 top_val_acc = val_acc
-                torch.save(slrt_model.state_dict(), "out-checkpoints/" + args.experiment_name + "/checkpoint_v_" + str(checkpoint_index) + ".pth")
+                torch.save(slrt_model, "out-checkpoints/" + args.experiment_name + "/checkpoint_v_" + str(checkpoint_index) + ".pth")
 
         if epoch % args.log_freq == 0:
             print("[" + str(epoch + 1) + "] TRAIN  loss: " + str(train_loss.item() / len(train_loader)) + " acc: " + str(train_acc))
@@ -219,9 +219,8 @@ def train(args):
     if eval_loader:
         for i in range(checkpoint_index):
             for checkpoint_id in ["t", "v"]:
-                tested_model = SPOTER(num_classes=args.num_classes, hidden_dim=args.hidden_dim)
                 # tested_model = VisionTransformer(dim=2, mlp_dim=108, num_classes=100, depth=12, heads=8)
-                tested_model.load_state_dict(torch.load("out-checkpoints/" + args.experiment_name + "/checkpoint_" + checkpoint_id + "_" + str(i) + ".pth"))
+                tested_model = torch.load("out-checkpoints/" + args.experiment_name + "/checkpoint_" + checkpoint_id + "_" + str(i) + ".pth")
                 tested_model.train(False)
                 _, _, eval_acc = evaluate(tested_model, eval_loader, device, print_stats=True)
 
