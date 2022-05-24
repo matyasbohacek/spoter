@@ -179,19 +179,20 @@ def normalize_single_dict(row: dict):
                 head_metric = neck_nose_distance
 
             # Set the starting and ending point of the normalization bounding box
-            # starting_point = [row["neck"][sequence_index][0] - 3 * head_metric,
-            #                  row["leftEye"][sequence_index][1] + (head_metric / 2)]
-            starting_point = [row["neck"][sequence_index][0] - 3 * head_metric,
-                              row["leftEye"][sequence_index][1] + head_metric]
-            ending_point = [row["neck"][sequence_index][0] + 3 * head_metric, starting_point[1] - 6 * head_metric]
+            #starting_point = [row["neck"][sequence_index][0] - 3 * head_metric,
+            #                 row["leftEye"][sequence_index][1] + (head_metric / 2)]
+            starting_point = [row["neck"][sequence_index][0] - 1 * head_metric,
+                            row["leftEye"][sequence_index][1] - head_metric/2]
+            ending_point = [row["neck"][sequence_index][0] + 1 * head_metric,
+                            starting_point[1] + 3 * head_metric]
 
             last_starting_point, last_ending_point = starting_point, ending_point
 
         # Ensure that all of the bounding-box-defining coordinates are not out of the picture
         if starting_point[0] < 0: starting_point[0] = 0
-        if starting_point[1] < 0: starting_point[1] = 0
+        if starting_point[1] > 1: starting_point[1] = 1
         if ending_point[0] < 0: ending_point[0] = 0
-        if ending_point[1] < 0: ending_point[1] = 0
+        if ending_point[1] > 1: ending_point[1] = 1
 
         # Normalize individual landmarks and save the results
         for identifier in BODY_IDENTIFIERS:
@@ -207,7 +208,7 @@ def normalize_single_dict(row: dict):
                 break
 
             normalized_x = (row[key][sequence_index][0] - starting_point[0]) / (ending_point[0] - starting_point[0])
-            normalized_y = (row[key][sequence_index][1] - ending_point[1]) / (starting_point[1] - ending_point[1])
+            normalized_y = (row[key][sequence_index][1] - starting_point[1]) / (ending_point[1] - starting_point[1])
 
             row[key][sequence_index] = list(row[key][sequence_index])
 

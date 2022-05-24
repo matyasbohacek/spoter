@@ -160,8 +160,13 @@ def normalize_single_dict(row: dict):
                 delta_x = delta_y + ((height - width) / 2)
 
             # Set the starting and ending point of the normalization bounding box
-            starting_point = (min(landmarks_x_values) - delta_x, min(landmarks_y_values) - delta_y)
-            ending_point = (max(landmarks_x_values) + delta_x, max(landmarks_y_values) + delta_y)
+            starting_point = [min(landmarks_x_values) - delta_x, min(landmarks_y_values) - delta_y]
+            ending_point = [max(landmarks_x_values) + delta_x, max(landmarks_y_values) + delta_y]
+            # Ensure that all of the bounding-box-defining coordinates are not out of the picture
+            if starting_point[0] < 0: starting_point[0] = 0
+            if starting_point[1] > 1: starting_point[1] = 1
+            if ending_point[0] < 0: ending_point[0] = 0
+            if ending_point[1] > 1: ending_point[1] = 1
 
             # Normalize individual landmarks and save the results
             for identifier in HAND_IDENTIFIERS:
@@ -172,10 +177,8 @@ def normalize_single_dict(row: dict):
                         starting_point[1] - ending_point[1]) == 0:
                     continue
 
-                normalized_x = (row[key][sequence_index][0] - starting_point[0]) / (ending_point[0] -
-                                                                                       starting_point[0])
-                normalized_y = (row[key][sequence_index][1] - starting_point[1]) / (ending_point[1] -
-                                                                                     starting_point[1])
+                normalized_x = (row[key][sequence_index][0] - starting_point[0]) / (ending_point[0] - starting_point[0])
+                normalized_y = (row[key][sequence_index][1] - starting_point[1]) / (ending_point[1] - starting_point[1])
 
                 row[key][sequence_index] = list(row[key][sequence_index])
 

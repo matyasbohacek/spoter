@@ -20,14 +20,14 @@ def load_dataset(file_location: str):
     df = pd.read_csv(file_location, encoding="utf-8")
 
     # TO BE DELETED
-    df.columns = [item.replace("_left_", "_0_").replace("_right_", "_1_") for item in list(df.columns)]
+    df.columns = [item.replace("_Left_", "_0_").replace("_Right_", "_1_") for item in list(df.columns)]
     if "neck_X" not in df.columns:
         df["neck_X"] = [0 for _ in range(df.shape[0])]
         df["neck_Y"] = [0 for _ in range(df.shape[0])]
 
     # TEMP
     labels = df["labels"].to_list()
-    # labels = [label + 1 for label in df["labels"].to_list()]
+    labels = [label + 1 for label in df["labels"].to_list()]
     data = []
 
     for row_index, row in df.iterrows():
