@@ -4,6 +4,7 @@ import argparse
 import random
 import logging
 import torch
+import wandb
 
 import numpy as np
 import torch.nn as nn
@@ -72,10 +73,19 @@ def get_default_args():
     parser.add_argument("--plot_lr", type=bool, default=True,
                         help="Determines whether the LR should be plotted at the end")
 
+    # WANDB
+    parser.add_argument("--wandb_key", type=str, default="", help="")
+    parser.add_argument("--wandb_entity", type=str, default="", help="")
+
     return parser
 
 
 def train(args):
+
+    if args.wandb_key:
+        wandb.login(key=args.wandb_key)
+        wandb.init(project=args.experiment_name, entity=args.wandb_entity)
+        wandb.config.update(args)
 
     # MARK: TRAINING PREPARATION AND MODULES
 
@@ -195,9 +205,20 @@ def train(args):
             print("[" + str(epoch + 1) + "] TRAIN  loss: " + str(train_loss.item() / len(train_loader)) + " acc: " + str(train_acc))
             logging.info("[" + str(epoch + 1) + "] TRAIN  loss: " + str(train_loss.item() / len(train_loader)) + " acc: " + str(train_acc))
 
+            wandb.log({
+                "epoch": int(epoch + 1),
+                "train-loss": float(train_loss.item() / len(train_loader)),
+                "train-accuracy": train_acc
+            })
+
             if val_loader:
                 print("[" + str(epoch + 1) + "] VALIDATION  acc: " + str(val_acc))
                 logging.info("[" + str(epoch + 1) + "] VALIDATION  acc: " + str(val_acc))
+
+                if args.wandb_key:
+                    wandb.log({
+                        "validation-accuracy": val_acc
+                    })
 
             print("")
             logging.info("")
@@ -234,6 +255,9 @@ def train(args):
         print("\nThe top result was recorded at " + str(top_result) + " testing accuracy. The best checkpoint is " + top_result_name + ".")
         logging.info("\nThe top result was recorded at " + str(top_result) + " testing accuracy. The best checkpoint is " + top_result_name + ".")
 
+    if args.wandb_key:
+        wandb.run.summary["best-accuracy"] = top_result
+        wandb.run.summary["best-checkpoint"] = top_result_name
 
     # PLOT 0: Performance (loss, accuracies) chart plotting
     if args.plot_stats:
