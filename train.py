@@ -67,6 +67,13 @@ def get_default_args():
     parser.add_argument("--gaussian_std", type=int, default=0.001,
                         help="Standard deviation parameter for Gaussian noise layer")
 
+    parser.add_argument("--augmentations_probability", type=float, default=0.5, help="")  # 0.462
+    parser.add_argument("--rotate_angle", type=int, default=17, help="")  # 17
+    parser.add_argument("--perspective_transform_ratio", type=float, default=0.2, help="")  # 0.1682
+    parser.add_argument("--squeeze_ratio", type=float, default=0.4, help="")  # 0.3971
+    parser.add_argument("--arm_joint_rotate_angle", type=int, default=4, help="")  # 3
+    parser.add_argument("--arm_joint_rotate_probability", type=float, default=0.4, help="")  # 0.3596
+
     # Visualization
     parser.add_argument("--plot_stats", type=bool, default=True,
                         help="Determines whether continuous statistics should be plotted at the end")
@@ -88,6 +95,7 @@ def train(args):
         wandb.config.update(args)
 
     # MARK: TRAINING PREPARATION AND MODULES
+    args.experiment_name = args.experiment_name + "_lr" + wandb.run.id
 
     # Initialize all the random seeds
     random.seed(args.seed)
@@ -133,7 +141,16 @@ def train(args):
 
     # Training set
     transform = transforms.Compose([GaussianNoise(args.gaussian_mean, args.gaussian_std)])
-    train_set = CzechSLRDataset(args.training_set_path, transform=transform, augmentations=True)
+    augmentations_config = {
+        "rotate-angle": args.rotate_angle,
+        "perspective-transform-ratio": args.perspective_transform_ratio,
+        "squeeze-ratio": args.squeeze_ratio,
+        "arm-joint-rotate-angle": args.arm_joint_rotate_angle,
+        "arm-joint-rotate-probability": args.arm_joint_rotate_probability
+    }
+
+    train_set = CzechSLRDataset(args.training_set_path, transform=transform, augmentations=True,
+                                augmentations_prob=args.augmentations_probability, augmentations_config=augmentations_config)
 
     # Validation set
     if args.validation_set == "from-file":
