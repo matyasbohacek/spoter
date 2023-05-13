@@ -1,4 +1,4 @@
-![Alt Text](http://spoter.signlanguagerecognition.com/img/GitHub_banner.png)
+![Top Banner](https://data.matsworld.io/signlanguagerecognition/GitHub_banner.png)
 
 > by **[Matyáš Boháček](https://github.com/matyasbohacek)** and **[Marek Hrúz](https://github.com/mhruz)**, University of West Bohemia <br>
 > Should you have any questions or inquiries, feel free to contact us [here](mailto:matyas.bohacek@matsworld.io).
