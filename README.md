@@ -59,3 +59,9 @@ If you find our work relevant, build upon it or compare your approaches with it,
     pages     = {182-191}
 }
 ```
+
+## Acknowledgements
+
+We would hereby like to thank [NF Cesta ke vzdělání](https://cestakevzdelani.praha.eu/) for sponsoring the student mobility-related costs, which allowed for the presentation and publication of this work.
+
+[![CkV Logo](https://cestakevzdelani.praha.eu/public/3/98/ab/1408502_268110_nadace_logo.png)](https://cestakevzdelani.praha.eu/)
